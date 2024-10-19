@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>String Transformers</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        text-align: center;
+        font-family: "Roboto", sans-serif;
+      }
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      input {
+        width: 100%;
+        margin-bottom: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+      }
+      .transformed {
+        font-size: 1.2rem;
+        margin: 1.5rem 0;
+        padding: 1rem;
+        background-color: aqua;
+        position: relative;
+        text-align: left;
+      }
+      .transformed label {
+        font-size: 1rem;
+        position: absolute;
+        top: -1.6rem;
+        left: 0;
+        color: white;
+        background-color: black;
+        padding: 0.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <input
+        type="text"
+        placeholder="Enter the sentence .."
+        value="Learning Utsav"
+      />
+      <div class="transformed" id="uppercase">
+        <label>Upper Case</label>
+        <span></span>
+      </div>
+      <div class="transformed" id="lowercase">
+        <label>Lower Case</label>
+        <span></span>
+      </div>
+      <div class="transformed" id="camelcase">
+        <label>Camel Case</label>
+        <span></span>
+      </div>
+      <div class="transformed" id="pascalcase">
+        <label>Pascal Case</label>
+        <span></span>
+      </div>
+      <div class="transformed" id="snakecase">
+        <label>Snake Case</label>
+        <span></span>
+      </div>
+      <div class="transformed" id="trim">
+        <label>Trim</label>
+        <span></span>
+      </div>
+    </main>
+    <script>
+      const input = document.querySelector("input");
+
+      const upperCaseResult = document.querySelector("#uppercase span");
+      const lowerCaseResult = document.querySelector("#lowercase span");
+      const camelCaseResult = document.querySelector("#camelcase span");
+      const pascalCaseResult = document.querySelector("#pascalcase span");
+      const snakeCaseResult = document.querySelector("#snakecase span");
+      const trimResult = document.querySelector("#trim span");
+      function capitalize(str) {
+        if (!str) return str;
+        return str[0].toUpperCase() + str.slice(1, str.length);
+      }
+      function camelCase(str) {
+        const lowerCaseString = str.toLowerCase();
+        const wordArray = lowerCaseString.split(" ");
+        const finalArray = wordArray.map((word, i) => {
+          if (i === 0) return word;
+          return capitalize(word);
+        });
+        return finalArray.join("");
+      }
+
+      function pascalCase(str) {
+        const lowerCaseString = str.toLowerCase();
+        const wordArray = lowerCaseString.split(" ");
+        const finalArray = wordArray.map((word) => {
+          return capitalize(word);
+        });
+        return finalArray.join("");
+      }
+      function snakecase(str) {
+        return str.replaceAll(" ", "_");
+      }
+      function trim(str) {
+        return str.replaceAll(" ", "");
+      }
+      function result() {
+        upperCaseResult.innerText = input.value.trim().toUpperCase();
+        lowerCaseResult.innerText = input.value.trim().toLowerCase();
+        camelCaseResult.innerText = camelCase(input.value.trim());
+        pascalCaseResult.innerText = pascalCase(input.value.trim());
+        snakeCaseResult.innerText = snakecase(input.value.trim());
+        trimResult.innerText = trim(input.value.trim());
+      }
+      result();
+      input.addEventListener("input", result);
+    </script>
+  </body>
+</html>
